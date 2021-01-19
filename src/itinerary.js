@@ -24,6 +24,7 @@
 			itineraryClassName: '',
 			totalDistanceRoundingSensitivity: -1,
 			show: true,
+			showItinerary: true,
 			collapsible: undefined,
 			collapseBtn: function(itinerary) {
 				var collapseBtn = L.DomUtil.create('span', itinerary.options.collapseBtnClass);
@@ -50,8 +51,10 @@
 				(!this.options.show ? 'leaflet-routing-container-hide ' : '') +
 				(collapsible ? 'leaflet-routing-collapsible ' : '') +
 				this.options.containerClassName);
-			this._altContainer = this.createAlternativesContainer();
-			this._container.appendChild(this._altContainer);
+			if (this.options.showItinerary) {
+				this._altContainer = this.createAlternativesContainer();
+				this._container.appendChild(this._altContainer);
+			}
 			L.DomEvent.disableClickPropagation(this._container);
 			L.DomEvent.addListener(this._container, 'mousewheel', function(e) {
 				L.DomEvent.stopPropagation(e);
@@ -83,7 +86,7 @@
 			for (i = 0; i < this._routes.length; i++) {
 				alt = this._routes[i];
 				altDiv = this._createAlternative(alt, i);
-				this._altContainer.appendChild(altDiv);
+				if (this.options.showItinerary) this._altContainer.appendChild(altDiv);
 				this._altElements.push(altDiv);
 			}
 
