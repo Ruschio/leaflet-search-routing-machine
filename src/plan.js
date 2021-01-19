@@ -181,7 +181,8 @@
 				this._focusGeocoder(i + 1);
 				this.fire('waypointgeocoded', {
 					waypointIndex: i,
-					waypoint: e.waypoint
+					waypoint: e.waypoint,
+					bounds: e.value.bbox
 				});
 			}, this)
 			.on('reversegeocoded', function(e) {

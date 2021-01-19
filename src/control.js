@@ -36,6 +36,7 @@
 				this.on('routingerror', this.options.defaultErrorHandler);
 			}
 			this._plan.on('waypointschanged', this._onWaypointsChanged, this);
+			this._plan.on('waypointgeocoded', this._moveMapTo, this);
 			if (options.routeWhileDragging) {
 				this._setupRouteDragging();
 			}
@@ -127,7 +128,7 @@
 				alternatives = this.options.showAlternatives && e.alternatives,
 				fitMode = this.options.fitSelectedRoutes,
 				fitBounds =
-					(fitMode === 'smart' && !this._waypointsVisible()) ||
+					(fitMode === 'smart') ||
 					(fitMode !== 'smart' && fitMode);
 
 			this._updateLines({route: route, alternatives: alternatives});
@@ -233,6 +234,15 @@
 				this.fire('routeselected', {route: selected, alternatives: alts});
 			}, this);
 		},
+		
+		_moveMapTo: function(e) {
+			if (!this._plan.isReady() && e.bounds) {
+				this._map.flyToBounds(e.bounds, {
+			        animate: true,
+			        duration: 1
+				});
+			}
+		},
 
 		_onWaypointsChanged: function(e) {
 			if (this.options.autoRoute) {
@@ -241,6 +251,7 @@
 			if (!this._plan.isReady()) {
 				this._clearLines();
 				this._clearAlts();
+				this.fire('waypointgeocoded', e.waypoints);
 			}
 			this.fire('waypointschanged', {waypoints: e.waypoints});
 		},
