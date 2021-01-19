@@ -34,6 +34,7 @@
 			},
 			geocoderPlaceholder: function(i, numberWaypoints, geocoderElement) {
 				var l = new Localization(geocoderElement.options.language).localize('ui');
+				if (numberWaypoints == 1) return l.searchPlaceholder;
 				return i === 0 ?
 					l.startPlaceholder :
 					(i < numberWaypoints - 1 ?

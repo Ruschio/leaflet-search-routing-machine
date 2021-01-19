@@ -54,6 +54,7 @@
 			return n + 'º';
 		},
 		ui: {
+			searchPlaceholder: 'Buscar',
 			startPlaceholder: 'Inicio',
 			viaPlaceholder: 'Via {viaNumber}',
 			endPlaceholder: 'Destino'
@@ -156,6 +157,7 @@
 				return suffix[i] ? n + suffix[i] : n + 'th';
 			},
 			ui: {
+				searchPlaceholder: 'Search',
 				startPlaceholder: 'Start',
 				viaPlaceholder: 'Via {viaNumber}',
 				endPlaceholder: 'End'
@@ -226,6 +228,7 @@
 				return n + '.';
 			},
 			ui: {
+				searchPlaceholder: 'Suchen',
 				startPlaceholder: 'Start',
 				viaPlaceholder: 'Via {viaNumber}',
 				endPlaceholder: 'Ziel'
@@ -289,6 +292,7 @@
 					/* Can't possibly be more than ten exits, can there? */][n - 1];
 			},
 			ui: {
+				searchPlaceholder: 'Sök',
 				startPlaceholder: 'Från',
 				viaPlaceholder: 'Via {viaNumber}',
 				endPlaceholder: 'Till'
@@ -344,6 +348,7 @@
 				}
 			},
 			ui: {
+				searchPlaceholder: 'Zoeken',
 				startPlaceholder: 'Vertrekpunt',
 				viaPlaceholder: 'Via {viaNumber}',
 				endPlaceholder: 'Bestemming'
@@ -391,6 +396,7 @@
 				return n + 'º';
 			},
 			ui: {
+				searchPlaceholder: 'Rechercher',
 				startPlaceholder: 'Départ',
 				viaPlaceholder: 'Intermédiaire {viaNumber}',
 				endPlaceholder: 'Arrivée'
@@ -438,8 +444,9 @@
 				return n + 'º';
 			},
 			ui: {
+				searchPlaceholder: 'Cerca',
 				startPlaceholder: 'Partenza',
-				viaPlaceholder: 'Intermedia {viaNumber}',
+				viaPlaceholder: 'passando per',
 				endPlaceholder: 'Destinazione'
 			}
 		},
@@ -498,6 +505,7 @@
 				return n + 'º';
 			},
 			ui: {
+				searchPlaceholder: 'Pesquisar',
 				startPlaceholder: 'Origem',
 				viaPlaceholder: 'Intermédio {viaNumber}',
 				endPlaceholder: 'Destino'
@@ -548,6 +556,7 @@
 				return suffix[i] ? n + suffix[i] : n + '.';
 			},
 			ui: {
+				searchPlaceholder: 'Hľadať',
 				startPlaceholder: 'Začiatok',
 				viaPlaceholder: 'Cez {viaNumber}',
 				endPlaceholder: 'Koniec'
@@ -595,6 +604,7 @@
 				return n + 'º';
 			},
 			ui: {
+				searchPlaceholder: 'ψάχνω για',
 				startPlaceholder: 'Αφετηρία',
 				viaPlaceholder: 'μέσω {viaNumber}',
 				endPlaceholder: 'Προορισμός'
@@ -642,6 +652,7 @@
 				return n + 'º';
 			},
 			ui: {
+				searchPlaceholder: 'Buscar',
 				startPlaceholder: 'Origen',
 				viaPlaceholder: 'Via {viaNumber}',
 				endPlaceholder: 'Destí'
@@ -710,6 +721,7 @@
 				return n + '-й';
 			},
 			ui: {
+				searchPlaceholder: 'искать',
 				startPlaceholder: 'Начало',
 				viaPlaceholder: 'Через {viaNumber}',
 				endPlaceholder: 'Конец'
@@ -723,9 +735,8 @@
 				minutes: 'м',
 				seconds: 'с'
 			}
-		},
-                
-                'pl': {
+		}, 
+        'pl': {
 			directions: {
 				N: 'północ',
 				NE: 'północny wschód',
@@ -768,6 +779,7 @@
 				return n + '.';
 			},
 			ui: {
+				searchPlaceholder: 'Wyszukaj',
 				startPlaceholder: 'Początek',
 				viaPlaceholder: 'Przez {viaNumber}',
 				endPlaceholder: 'Koniec'
