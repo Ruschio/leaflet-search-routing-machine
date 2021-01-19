@@ -17,6 +17,7 @@
 			draggableWaypoints: true,
 			routeWhileDragging: false,
 			addWaypoints: true,
+			maxWaypoints: 5,
 			reverseWaypoints: false,
 			addButtonClassName: '',
 			language: 'en',
@@ -76,7 +77,9 @@
 				args.push(arguments[i] && arguments[i].hasOwnProperty('latLng') ? arguments[i] : new Waypoint(arguments[i]));
 			}
 
-			[].splice.apply(this._waypoints, args);
+			if (!this.options.maxWaypoints || this._waypoints.length < this.options.maxWaypoints || arguments.length < 3) {
+				[].splice.apply(this._waypoints, args);
+			}
 
 			// Make sure there's always at least two waypoints
 			while (this._waypoints.length < 2) {
