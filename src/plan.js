@@ -42,6 +42,8 @@
 		},
 
 		isReady: function() {
+			if (this._waypoints.length < 2) return false;
+			
 			var i;
 			for (i = 0; i < this._waypoints.length; i++) {
 				if (!this._waypoints[i].latLng) {
@@ -82,10 +84,24 @@
 			}
 
 			// Make sure there's always at least two waypoints
-			while (this._waypoints.length < 2) {
+			while (this._waypoints.length < 1) {
 				this.spliceWaypoints(this._waypoints.length, 0, null);
 			}
 
+			if (this._actionContainer) {
+				var check = (this._waypoints.length < 2),
+					el;
+				
+				for (el of this._actionContainer.getElementsByTagName('button')) {
+					if (L.DomUtil.hasClass(el, 'leaflet-routing-start')) {
+						check ? L.DomUtil.removeClass(el, 'leaflet-routing-action-hide') :	L.DomUtil.addClass(el, 'leaflet-routing-action-hide');
+					} else {
+						check ? L.DomUtil.addClass(el, 'leaflet-routing-action-hide') : L.DomUtil.removeClass(el, 'leaflet-routing-action-hide');
+					}
+				}
+				
+			}
+			
 			this._updateMarkers();
 			this._fireChanged.apply(this, args);
 		},
@@ -109,29 +125,37 @@
 		},
 
 		createGeocoders: function() {
-			var container = L.DomUtil.create('div', 'leaflet-routing-geocoders ' + this.options.geocodersClassName),
+			var container = L.DomUtil.create('div', 'leaflet-routing-main'),
+				geocoders = L.DomUtil.create('div', 'leaflet-routing-geocoders ' + this.options.geocodersClassName, container),
+				actions = L.DomUtil.create('div', 'leaflet-routing-actions', container),
 				waypoints = this._waypoints,
+				startBtn = L.DomUtil.create('button', 'leaflet-routing-start', actions),
 			    addWpBtn,
 			    reverseBtn;
 
-			this._geocoderContainer = container;
+			this._geocoderContainer = geocoders;
+			this._actionContainer = actions;
 			this._geocoderElems = [];
-
-
-			if (this.options.addWaypoints) {
-				addWpBtn = L.DomUtil.create('button', 'leaflet-routing-add-waypoint ' + this.options.addButtonClassName, container);
-				addWpBtn.setAttribute('type', 'button');
-				L.DomEvent.addListener(addWpBtn, 'click', function() {
-					this.spliceWaypoints(waypoints.length, 0, null);
-				}, this);
-			}
+			
+			startBtn.setAttribute('type', 'button');
+			L.DomEvent.addListener(startBtn, 'click', function() {
+				this.spliceWaypoints(waypoints.length, 0, null);
+			}, this);
 
 			if (this.options.reverseWaypoints) {
-				reverseBtn = L.DomUtil.create('button', 'leaflet-routing-reverse-waypoints', container);
+				reverseBtn = L.DomUtil.create('button', 'leaflet-routing-reverse-waypoints leaflet-routing-action-hide', actions);
 				reverseBtn.setAttribute('type', 'button');
 				L.DomEvent.addListener(reverseBtn, 'click', function() {
 					this._waypoints.reverse();
 					this.setWaypoints(this._waypoints);
+				}, this);
+			}
+
+			if (this.options.addWaypoints) {
+				addWpBtn = L.DomUtil.create('button', 'leaflet-routing-add-waypoint leaflet-routing-action-hide ' + this.options.addButtonClassName, actions);
+				addWpBtn.setAttribute('type', 'button');
+				L.DomEvent.addListener(addWpBtn, 'click', function() {
+					this.spliceWaypoints(waypoints.length, 0, null);
 				}, this);
 			}
 
