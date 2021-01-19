@@ -38,11 +38,12 @@
     "browserify-derequire": "^0.9.4",
     "browserify-shim": "^3.8.13",
     "derequire": "^2.0.6",
-    "uglify-js": "^2.8.2"
+    "uglify-js": "^3.3.9"
   },
   "dependencies": {
     "@mapbox/corslite": "0.0.7",
     "@mapbox/polyline": "^0.2.0",
-    "osrm-text-instructions": "^0.13.2"
+    "osrm-text-instructions": "^0.13.2",
+    "uglify-es": "^3.3.9"
   }
 }
