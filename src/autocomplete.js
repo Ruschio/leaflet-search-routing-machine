@@ -10,10 +10,11 @@
 			noResultsMessage: 'No results found.'
 		},
 
-		initialize: function(elem, callback, context, options) {
+		initialize: function(elem, callback, context, options, container) {
 			L.setOptions(this, options);
 
 			this._elem = elem;
+			this._parent = container;
 			this._resultFn = options.resultFn ? L.Util.bind(options.resultFn, options.resultContext) : null;
 			this._autocomplete = options.autocompleteFn ? L.Util.bind(options.autocompleteFn, options.autocompleteContext) : null;
 			this._selectFn = L.Util.bind(callback, context);
@@ -37,6 +38,10 @@
 			L.DomUtil.removeClass(this._container, 'leaflet-routing-geocoder-result-open');
 			this._isOpen = false;
 		},
+		
+		remove: function() {
+			this._parent.removeChild(this._container);
+		},
 
 		_open: function() {
 			var rect = this._elem.getBoundingClientRect();
@@ -47,10 +52,11 @@
 					: (document.documentElement || document.body.parentNode || document.body).scrollLeft;
 				var scrollY = (window.pageYOffset !== undefined) ? window.pageYOffset
 					: (document.documentElement || document.body.parentNode || document.body).scrollTop;
-				this._container.style.left = (rect.left + scrollX) + 'px';
-				this._container.style.top = (rect.bottom + scrollY) + 'px';
+				var right = (document.documentElement || document.body.parentNode || document.body).clientWidth;
+				this._container.style.right = (right - rect.right) + 'px';
+				this._container.style.top = (rect.bottom) + 'px';
 				this._container.style.width = (rect.right - rect.left) + 'px';
-				document.body.appendChild(this._container);
+				this._parent.appendChild(this._container);
 			}
 
 			L.DomUtil.addClass(this._container, 'leaflet-routing-geocoder-result-open');

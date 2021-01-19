@@ -21,8 +21,8 @@
 			reverseWaypoints: false,
 			addButtonClassName: '',
 			language: 'en',
-			createGeocoderElement: function(wp, i, nWps, plan) {
-				return new GeocoderElement(wp, i, nWps, plan);
+			createGeocoderElement: function(wp, i, nWps, plan, container) {
+				return new GeocoderElement(wp, i, nWps, plan, container);
 			},
 			createMarker: function(i, wp) {
 				var options = {
@@ -166,7 +166,7 @@
 		},
 
 		_createGeocoder: function(i) {
-			var geocoder = this.options.createGeocoderElement(this._waypoints[i], i, this._waypoints.length, this.options);
+			var geocoder = this.options.createGeocoderElement(this._waypoints[i], i, this._waypoints.length, this.options, this._map.getContainer());
 			geocoder
 			.on('delete', function() {
 				if (i > 0 || this._waypoints.length > 2) {

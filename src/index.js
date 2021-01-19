@@ -36,8 +36,8 @@ L.routing = {
     formatter: function(options) {
         return new Formatter(options);
     },
-    geocoderElement: function(wp, i, nWps, plan) {
-        return new L.Routing.GeocoderElement(wp, i, nWps, plan);
+    geocoderElement: function(wp, i, nWps, plan, container) {
+        return new L.Routing.GeocoderElement(wp, i, nWps, plan, container);
     },
     itineraryBuilder: function(options) {
         return new ItineraryBuilder(options);
@@ -48,8 +48,8 @@ L.routing = {
     errorControl: function(routingControl, options) {
         return new ErrorControl(routingControl, options);
     },
-    autocomplete: function(elem, callback, context, options) {
-        return new Autocomplete(elem, callback, context, options);
+    autocomplete: function(elem, callback, context, options, container) {
+        return new Autocomplete(elem, callback, context, options, container);
     }
 };
 

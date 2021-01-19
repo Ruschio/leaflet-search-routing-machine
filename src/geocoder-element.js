@@ -58,7 +58,7 @@
 			language: 'en',
 		},
 
-		initialize: function(wp, i, nWps, options) {
+		initialize: function(wp, i, nWps, options, container) {
 			L.setOptions(this, options);
 
 			var g = this.options.createGeocoder(i, nWps, this.options),
@@ -80,17 +80,7 @@
 				selectInputText(this);
 			}, geocoderInput);
 
-			if (closeButton) {
-				L.DomEvent.addListener(closeButton, 'click', function() {
-					this.fire('delete', { waypoint: this._waypoint });
-				}, this);
-			}
-
-			if (typeof this.options.formatGeocoderResult == 'function') {
-				this.options.autocompleteOptions.formatGeocoderResult = this.options.formatGeocoderResult;
-			}
-
-			new Autocomplete(geocoderInput, function(r) {
+			this._autocomplete = new Autocomplete(geocoderInput, function(r) {
 					geocoderInput.value = r.name;
 					wp.name = r.name;
 					wp.latLng = r.center;
@@ -100,7 +90,17 @@
 					resultContext: this.options.geocoder,
 					autocompleteFn: this.options.geocoder.suggest,
 					autocompleteContext: this.options.geocoder
-				}, this.options.autocompleteOptions));
+				}, this.options.autocompleteOptions), container);
+
+			if (closeButton) {
+				L.DomEvent.addListener(closeButton, 'click', function() {
+					this.fire('delete', { waypoint: this._waypoint });
+				}, this);
+			}
+
+			if (typeof this.options.formatGeocoderResult == 'function') {
+				this.options.autocompleteOptions.formatGeocoderResult = this.options.formatGeocoderResult;
+			}
 		},
 
 		getContainer: function() {
